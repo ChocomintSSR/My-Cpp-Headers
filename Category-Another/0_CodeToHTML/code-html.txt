@@ -1,0 +1,13 @@
+<span class="code-using">#include</span> <iostream>
+<span class="code-using">#include</span> "BigNumber.h"
+<span class="code-using">using</span> <span class="code-type">namespace</span> <span class="code-class">std</span>;
+<span class="code-using">using</span> <span class="code-type">namespace</span> <span class="code-class">chocom<span class="code-type">int</span></span>;
+
+<span class="code-type">int</span> <span class="code-func">main</span>()
+{
+	<span class="code-class">BigInt</span> <span class="code-var">bi</span> = 123;
+	<span class="code-var">bi</span> << 2;
+	<span class="code-var">cout</span> << <span class="code-var">bi</span> << "\n"; // 12300
+
+	<span class="code-using">return</span> 0;
+}
