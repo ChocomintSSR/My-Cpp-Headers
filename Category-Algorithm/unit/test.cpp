@@ -4,6 +4,7 @@ using namespace std;
 
 int main()
 {
-	unit<2> u({"sec", "min"}, {60});
+	unit<3> u({"sec", "min", "hr"}, {60, 60});
+	u.to_value("sec");
 	return 0;
 }

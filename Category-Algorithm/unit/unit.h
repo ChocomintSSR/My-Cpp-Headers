@@ -32,6 +32,17 @@ namespace std
     {
         auto container = this->_unit_names;
         auto pos = find(container.begin(), container.end(), _Unit);
+        if (pos == container.end())
+        {
+            cout << "[Warning!] " << string("There is no \"") + _Unit + "\" unit in the list.\n";
+            return -1;
+        }
+        else
+        {
+            int index = pos - container.begin();
+            cout << index;
+            return 0;
+        }
     }
 }
 
