@@ -13,8 +13,9 @@ namespace std
     class unit
     {
     private:
-        vector<string> _unit_names;
-        vector<double> _unit_values;
+        vector<string> _unit_names;  // sec, min, ...
+        vector<double> _unit_ref;    // 60, ...
+        vector<double> _unit_values; // 2 (sec)
 
     public:
         unit();
@@ -26,6 +27,14 @@ namespace std
 
         double to_value(char *_Unit);
     };
+
+    template <int amount>
+    ostream &operator<<(ostream &_os, const unit<amount> &_u)
+    {
+        for (int i = 0; i < _u.get_unit_names().size(); i++)
+        {
+        }
+    }
 
     template <int amount>
     double unit<amount>::to_value(char *_Unit)
