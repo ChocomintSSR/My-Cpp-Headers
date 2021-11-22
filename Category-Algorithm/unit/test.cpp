@@ -4,6 +4,6 @@ using namespace std;
 
 int main()
 {
-	unit u;
+	unit<2> u({"sec", "min"}, {60});
 	return 0;
 }

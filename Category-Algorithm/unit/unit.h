@@ -5,14 +5,34 @@
 #include <string>
 #include <vector>
 #include <utility>
+#include <algorithm>
 
 namespace std
 {
+    template <int amount> // amount == _unit_names.size() == _unit_values.size() - 1
     class unit
     {
     private:
-        vector<pair<string, string>> v;
+        vector<string> _unit_names;
+        vector<double> _unit_values;
+
+    public:
+        unit();
+        unit(vector<string> unit_names, vector<double> unit_values) : _unit_names(unit_names), _unit_values(unit_values) {}
+        unit(initializer_list<string> unit_names, initializer_list<double> unit_values) : _unit_names(unit_names.begin(), unit_names.end()), _unit_values(unit_values.begin(), unit_values.end()) {}
+
+        vector<string> get_unit_names() const { return _unit_names; }
+        vector<double> get_unit_values() const { return _unit_values; }
+
+        double to_value(char *_Unit);
     };
+
+    template <int amount>
+    double unit<amount>::to_value(char *_Unit)
+    {
+        auto container = this->_unit_names;
+        auto pos = find(container.begin(), container.end(), _Unit);
+    }
 }
 
 #endif
