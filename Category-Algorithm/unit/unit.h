@@ -2,10 +2,11 @@
 #define _UNIT_H_
 
 #include <iostream>
+#include <string>
 #include <vector>
 #include <pair>
 
-namespace chocomint
+namespace std
 {
     class unit
     {
