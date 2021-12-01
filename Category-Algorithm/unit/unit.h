@@ -9,6 +9,10 @@
 
 namespace std
 {
+    class reference_unit
+    {
+    };
+
     template <int amount> // amount == _unit_names.size() == _unit_values.size() - 1
     class unit
     {
