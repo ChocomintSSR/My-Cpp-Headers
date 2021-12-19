@@ -26,6 +26,6 @@ inline double lambert_W(double _X) { return ProductLog(_X); }
 
 int main()
 {
-	cout << setprecision(13) << ProductLog(1) << "\n";
+	cout << exp(-ProductLog(1)) << "\n";
 	return 0;
 }
