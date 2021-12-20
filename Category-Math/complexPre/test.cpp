@@ -1,13 +1,11 @@
 #include <iostream>
 #include <stdlib.h>
-#include "complex.h"
-using namespace chocomint;
+#include <complex>
+using namespace std;
 
 int main()
 {
-	complex a = 1 + 2i, b = 6 - i, c;
-	std::cin >> c;
-	std::cout << c;
-
+	complex<double> z = 1.0 + 2i;
+	arg(z);
 	return 0;
 }

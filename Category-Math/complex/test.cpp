@@ -4,7 +4,7 @@ using namespace chocomint;
 
 int main()
 {
-	complex z = {1, 2};
-	std::cout << z + z;
+	complex z = {-1, -2};
+	std::cout << z.Arg();
 	return 0;
 }
