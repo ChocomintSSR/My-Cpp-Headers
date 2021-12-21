@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <cmath>
+#include <functional>
 #define i complex(0, 1)
 #define pi 3.14159265358979323846
 
@@ -21,7 +22,7 @@ namespace chocomint
 		double Re() const { return real; }
 		double Im() const { return imag; }
 		double mod() const { return std::sqrt(real * real + imag * imag); }
-		double Arg() const { return atan2(real, imag); } // principle value of argument
+		double Arg() const { return atan2(imag, real); } // principle value of argument
 		complex conj() const { return {real, -imag}; }
 	};
 
@@ -89,17 +90,33 @@ namespace chocomint
 	inline complex cosh(const complex &_Right) { return (exp(_Right) + exp(-_Right)) / 2; }
 	inline complex tanh(const complex &_Right) { return sinh(_Right) / cosh(_Right); }
 
-	typedef class multiple_valued
+	using fci = std::function<complex(int)>;
+	class multiple_valued
 	{
 	private:
-		complex principle_value;
-		double period;
+		fci _formula;
 
 	public:
-		multiple_valued(const complex &_PV, const double &_p) : principle_value(_PV), period(_p) {}
-		complex PV() { return principle_value; }
-		complex value(int k) { return principle_value + period * k * i; }
-	} multival;
+		multiple_valued(fci Formula) : _formula(Formula) {}
+		complex value(int k_th) { return this->_formula(k_th); }
+		// principle value
+		complex PV() { return this->value(0); }
+	};
+
+	multiple_valued Ln(const complex &_Right)
+	{
+		fci _return = [&](int k) -> complex
+		{ return complex(std::log(_Right.mod()), _Right.Arg() + 2 * k * pi); };
+		return multiple_valued(_return);
+	}
+
+	multiple_valued pow(const complex &_Base, const complex &_Power)
+	{
+		complex A = exp(_Power * Ln(_Base).PV());
+		fci _return = [&](int k) -> complex
+		{ return A * exp(2 * k * pi * complex(-_Power.Im(), _Power.Re())); };
+		return _return;
+	}
 }
 
 #endif // _COMPLEX_H_
