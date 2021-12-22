@@ -4,6 +4,8 @@
 #include <iostream>
 #include <cmath>
 #include <functional>
+#include <initializer_list>
+#include <vector>
 #define i complex(0, 1)
 #define pi 3.14159265358979323846
 
@@ -76,9 +78,9 @@ namespace chocomint
 	inline complex operator*(const complex &_Left, const double &_Right) { return {_Left.Re() * _Right, _Left.Im() * _Right}; }
 	inline complex operator*(const double &_Left, const complex &_Right) { return {_Right.Re() * _Left, _Right.Im() * _Left}; }
 
-	inline complex operator/(const complex &_Left, const complex &_Right) { return (_Left * _Right.conj()) / _Right.mod(); }
 	inline complex operator/(const complex &_Left, const double &_Right) { return {_Left.Re() / _Right, _Left.Im() / _Right}; }
-	inline complex operator/(const double &_Left, const complex &_Right) { return _Left * _Right.conj() / _Right.mod(); }
+	inline complex operator/(const complex &_Left, const complex &_Right) { return (_Left * _Right.conj()) / std::pow(_Right.mod(), 2); }
+	inline complex operator/(const double &_Left, const complex &_Right) { return complex(_Left) / _Right; }
 
 	inline complex exp(const complex &_Right) { return std::exp(_Right.Re()) * complex(std::cos(_Right.Im()), std::sin(_Right.Im())); }
 
@@ -112,10 +114,31 @@ namespace chocomint
 
 	multiple_valued pow(const complex &_Base, const complex &_Power)
 	{
-		complex A = exp(_Power * Ln(_Base).PV());
 		fci _return = [&](int k) -> complex
-		{ return A * exp(2 * k * pi * complex(-_Power.Im(), _Power.Re())); };
-		return _return;
+		{ return exp(_Power * (Ln(_Base).PV() + 2 * k * pi * i)); };
+		return multiple_valued(_return);
+	}
+	inline complex sqrt(const complex &_Right) { return pow(_Right, 0.5).PV(); }
+
+	inline multiple_valued arcsin(const complex &_Right)
+	{
+		fci _return = [&](int k) -> complex
+		{ return -i * Ln(sqrt(1 - _Right * _Right) + i * _Right).value(k); };
+		return multiple_valued(_return);
+	}
+
+	inline multiple_valued arccos(const complex &_Right)
+	{
+		fci _return = [&](int k) -> complex
+		{ return -i * Ln(i * sqrt(1 - _Right * _Right) + _Right).value(k); };
+		return multiple_valued(_return);
+	}
+
+	inline multiple_valued arctan(const complex &_Right)
+	{
+		fci _return = [&](int k) -> complex
+		{ return -i / 2 * Ln((i - _Right) / (i + _Right)).value(k); };
+		return multiple_valued(_return);
 	}
 }
 

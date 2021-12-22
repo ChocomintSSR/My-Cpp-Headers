@@ -313,7 +313,7 @@ namespace chocomint
     {
         return ln(c) / ln(base);
     }
-    //C^C
+    // C^C
     complex operator^(const complex &th, const complex &ot)
     {
         return 10 ^ (ot * clog(10, th));

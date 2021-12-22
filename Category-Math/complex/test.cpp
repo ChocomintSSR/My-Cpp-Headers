@@ -12,6 +12,8 @@ std::function<int(int)> test()
 
 int main()
 {
-	std::cout << pow(i, i).PV();
+	complex z = 1 + 2 * i;
+	std::cout << arctan(z).PV() << "\n"
+			  << 1 / z << "\n";
 	return 0;
 }
