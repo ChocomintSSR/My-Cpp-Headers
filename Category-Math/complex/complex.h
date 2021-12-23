@@ -26,6 +26,16 @@ namespace chocomint
 		double mod() const { return std::sqrt(real * real + imag * imag); }
 		double Arg() const { return atan2(imag, real); } // principle value of argument
 		complex conj() const { return {real, -imag}; }
+
+		inline complex &operator+=(const complex &_Right);
+		inline complex &operator-=(const complex &_Right);
+		inline complex &operator*=(const complex &_Right);
+		inline complex &operator*=(const double &_Right);
+		inline complex &operator/=(const complex &_Right);
+		inline complex &operator/=(const double &_Right);
+
+		inline bool operator==(const complex &_Right) { return (real == _Right.real) && (imag == _Right.imag); }
+		inline bool operator!=(const complex &_Right) { return !(*this == _Right); }
 	};
 
 	std::ostream &operator<<(std::ostream &_os, const complex &_Right)
@@ -81,6 +91,42 @@ namespace chocomint
 	inline complex operator/(const complex &_Left, const double &_Right) { return {_Left.Re() / _Right, _Left.Im() / _Right}; }
 	inline complex operator/(const complex &_Left, const complex &_Right) { return (_Left * _Right.conj()) / std::pow(_Right.mod(), 2); }
 	inline complex operator/(const double &_Left, const complex &_Right) { return complex(_Left) / _Right; }
+
+	complex &complex::operator+=(const complex &_Right)
+	{
+		this->real = this->real + _Right.Re();
+		this->imag = this->imag + _Right.Im();
+		return *this;
+	}
+	complex &complex::operator-=(const complex &_Right)
+	{
+		this->real = this->real - _Right.Re();
+		this->imag = this->imag - _Right.Im();
+		return *this;
+	}
+	complex &complex::operator*=(const complex &_Right)
+	{
+		this->real = this->real * _Right.Re() - this->imag * _Right.Im();
+		this->imag = this->real * _Right.Im() + this->imag * _Right.Re();
+		return *this;
+	}
+	complex &complex::operator*=(const double &_Right)
+	{
+		this->real = this->real * _Right;
+		this->imag = this->imag * _Right;
+		return *this;
+	}
+	complex &complex::operator/=(const complex &_Right)
+	{
+		*this = (*this * _Right.conj()) / std::pow(_Right.mod(), 2);
+		return *this;
+	}
+	complex &complex::operator/=(const double &_Right)
+	{
+		this->real = this->real / _Right;
+		this->imag = this->imag / _Right;
+		return *this;
+	}
 
 	inline complex exp(const complex &_Right) { return std::exp(_Right.Re()) * complex(std::cos(_Right.Im()), std::sin(_Right.Im())); }
 

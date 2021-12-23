@@ -5,7 +5,8 @@ using namespace std;
 
 int main()
 {
+	int k;
 	complex<double> z = 1.0 + 2i;
-	arg(z);
+	z += z;
 	return 0;
 }
