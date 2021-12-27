@@ -23,7 +23,7 @@ namespace chocomint
 
 		double Re() const { return real; }
 		double Im() const { return imag; }
-		double mod() const { return std::sqrt(real * real + imag * imag); }
+		double norm() const { return std::sqrt(real * real + imag * imag); }
 		double Arg() const { return atan2(imag, real); } // principle value of argument
 		complex conj() const { return {real, -imag}; }
 
@@ -89,7 +89,7 @@ namespace chocomint
 	inline complex operator*(const double &_Left, const complex &_Right) { return {_Right.Re() * _Left, _Right.Im() * _Left}; }
 
 	inline complex operator/(const complex &_Left, const double &_Right) { return {_Left.Re() / _Right, _Left.Im() / _Right}; }
-	inline complex operator/(const complex &_Left, const complex &_Right) { return (_Left * _Right.conj()) / std::pow(_Right.mod(), 2); }
+	inline complex operator/(const complex &_Left, const complex &_Right) { return (_Left * _Right.conj()) / std::pow(_Right.norm(), 2); }
 	inline complex operator/(const double &_Left, const complex &_Right) { return complex(_Left) / _Right; }
 
 	complex &complex::operator+=(const complex &_Right)
@@ -118,7 +118,7 @@ namespace chocomint
 	}
 	complex &complex::operator/=(const complex &_Right)
 	{
-		*this = (*this * _Right.conj()) / std::pow(_Right.mod(), 2);
+		*this = (*this * _Right.conj()) / std::pow(_Right.norm(), 2);
 		return *this;
 	}
 	complex &complex::operator/=(const double &_Right)
@@ -154,7 +154,7 @@ namespace chocomint
 	multiple_valued Ln(const complex &_Right)
 	{
 		fci _return = [&](int k) -> complex
-		{ return complex(std::log(_Right.mod()), _Right.Arg() + 2 * k * pi); };
+		{ return complex(std::log(_Right.norm()), _Right.Arg() + 2 * k * pi); };
 		return multiple_valued(_return);
 	}
 

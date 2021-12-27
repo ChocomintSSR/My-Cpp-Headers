@@ -30,7 +30,7 @@ namespace std
 		Vector3D &operator+=(const Vector3D &_ref);
 		Vector3D &operator-=(const Vector3D &_ref);
 
-		_Ty magnitude() const { return sqrt(pow(_x, 2) + pow(_y, 2) + pow(_z, 2)); };
+		_Ty norm() const { return sqrt(pow(_x, 2) + pow(_y, 2) + pow(_z, 2)); };
 		friend _Ty angle(const Vector3D &_A, const Vector3D &_B) { return dot(_A, _B) / (_A.magnitude() * _B.magnitude()); }
 
 		friend ostream &operator<<(ostream &_os, const Vector3D &_v)
