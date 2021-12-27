@@ -51,8 +51,6 @@ namespace chocomint
 		bool operator<(const BigInt &ref);
 		bool operator>=(const BigInt &ref);
 		bool operator<=(const BigInt &ref);
-
-		std::string base(int base);
 	};
 
 	std::ostream &operator<<(std::ostream &os, BigInt &value)
@@ -332,11 +330,16 @@ namespace chocomint
 		return !(*this > ref);
 	}
 
-	std::string BigInt::base(int base)
+	// ======================= functions ======================== //
+
+	BigInt frac(BigInt &n)
 	{
-		std::string tmp;
-		*this;
+		if (n == BigInt(1))
+			return BigInt(1);
+		else
+			return n * frac(n - 1);
 	}
+	BigInt frac(const unsigned long long &n) {}
 }
 
 #endif

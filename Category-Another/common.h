@@ -13,27 +13,29 @@
 
 // define
 #define ull unsigned long long
+#define dd cout << '\n';
 
 #define delta 1e-12
 #define eps 1e-12
 
 #define times(n) for (int i = 0; i < n; i++)
+#define all(container) container.begin(), container.end()
 
 namespace std
 {
 	// Math
 
-	inline int gcd(int m, int n) { return (m == 0) ? m : gcd(n, m % n); }
-	inline int frac(int n) { return (n == 1) ? 1 : frac(n - 1); }
-	inline int P(int m, int n) { return frac(m) / frac(m - n); }
-	inline int C(int m, int n) { return P(m, n) / frac(n); }
-	inline int H(int m, int n) { return C(m + n - 1, n); }
+	inline ull gcd(ull m, ull n) { return (m == 0) ? m : gcd(n, m % n); }
+	inline ull frac(ull n) { return (n == 1) ? 1 : n * frac(n - 1); }
+	inline ull P(ull m, ull n) { return frac(m) / frac(m - n); }
+	inline ull C(ull m, ull n) { return P(m, n) / frac(n); }
+	inline ull H(ull m, ull n) { return C(m + n - 1, n); }
 
 	// Boolean
 
 	inline bool isNumber(char c) { return (c >= '0' && c <= '9'); }
 	inline bool isNumber(string s) { return s.find_first_not_of("0123456789") == string::npos; }
-	bool isPrime(int n)
+	bool isPrime(ull n)
 	{
 		if (n < 2)
 			return false;
@@ -41,7 +43,7 @@ namespace std
 		if (n % 2 == 0)
 			return n == 2;
 
-		for (int i = 3; i < sqrt(n); i += 2)
+		for (ull i = 3; i < sqrt(n); i += 2)
 		{
 			if (n % i == 0)
 				return false;
@@ -63,9 +65,9 @@ namespace std
 		uniform_real_distribution<double> dis(lower_bound, upper_bound);
 		return dis(gen);
 	}
-	double normal_dis(double lower_bound, double upper_bound)
+	double normal_dis(double mean, double sigma = 1)
 	{
-		normal_distribution<double> dis(lower_bound, upper_bound);
+		normal_distribution<double> dis(mean, sigma);
 		return dis(gen);
 	}
 
@@ -117,14 +119,6 @@ namespace std
 	}
 	// precision: about 13 digits
 	inline double lambert_W(double _X) { return ProductLog(_X); }
-
-	//
-	// char positional(const char *number, int radix1, int radix2)
-	// {
-	// 	char *c, res[99999];
-	// 	itoa(strtol(number, &c, radix1), res, radix2);
-	// 	return static_cast<char *>(res);
-	// }
 }
 
 #endif // _COMMON_H_
