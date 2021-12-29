@@ -7,10 +7,10 @@
 #include <cmath>
 #include <algorithm>
 #include <sstream>
+#define c_eps 1e-10
 
 namespace chocomint
 {
-#define c_eps 1e-10
 	using std::vector;
 	class Vector3D
 	{

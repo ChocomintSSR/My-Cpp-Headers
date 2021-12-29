@@ -61,6 +61,16 @@
         "unordered_map": "cpp",
         "xhash": "cpp",
         "random": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "chrono": "cpp",
+        "ratio": "cpp",
+        "array": "cpp",
+        "charconv": "cpp",
+        "format": "cpp",
+        "forward_list": "cpp",
+        "locale": "cpp",
+        "optional": "cpp",
+        "xlocbuf": "cpp",
+        "xlocmes": "cpp"
     }
 }

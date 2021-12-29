@@ -10,6 +10,7 @@
 #include <map>
 #include <set>
 #include <stdlib.h>
+#include <chrono>
 
 // define
 #define ull unsigned long long
@@ -119,6 +120,29 @@ namespace std
 	}
 	// precision: about 13 digits
 	inline double lambert_W(double _X) { return ProductLog(_X); }
+
+	enum unit
+	{
+		zero = 0,
+		millisec = 3,
+		microsec = 6,
+		nanosec = 9
+	};
+
+	class timer
+	{
+	private:
+		std::chrono::steady_clock::time_point time_start;
+		std::chrono::nanoseconds elapsed;
+
+	public:
+		timer() {}
+
+		void start() { time_start = std::chrono::steady_clock::now(); }
+		void stop() { elapsed = std::chrono::steady_clock::now() - time_start; }
+		double elapse(unit u = zero) { return std::chrono::duration<double>(elapsed).count() * pow(10, static_cast<int>(u)); }
+		void print(unit u = zero) { cout << elapse(u) << "\n"; }
+	};
 }
 
 #endif // _COMMON_H_
